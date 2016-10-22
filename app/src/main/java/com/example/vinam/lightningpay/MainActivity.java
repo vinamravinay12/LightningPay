@@ -1,5 +1,7 @@
 package com.example.vinam.lightningpay;
 
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -12,18 +14,43 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private static final int ACTIVITY_RESULT_QR_DRDROID = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        //"Scan" button
+        final Button button = (Button) findViewById(R.id.button_scan);
+        //Set action to button
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Create a new Intent to send to QR Droid
+                Intent qrDroid = new Intent(Services.SCAN); //Set action "la.droid.qr.scan"
+
+                //Send intent and wait result
+                try {
+                    startActivityForResult(qrDroid, ACTIVITY_RESULT_QR_DRDROID);
+                } catch (ActivityNotFoundException activity) {
+                    //	Services.qrDroidRequired(Scan.this);
+                }
+            }
+        });
+
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+       FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -40,7 +67,41 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+
+
     }
+
+
+    @Override
+    /**
+     * Reads data scanned by user and returned by QR Droid
+     */
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if( ACTIVITY_RESULT_QR_DRDROID==requestCode && null!=data && data.getExtras()!=null ) {
+            //Read result from QR Droid (it's stored in la.droid.qr.result)
+            String result = data.getExtras().getString(Services.RESULT);
+            //Just set result to EditText to be able to view it
+            EditText resultTxt = (EditText) findViewById(R.id.result);
+            resultTxt.setText( result );
+            resultTxt.setVisibility(View.VISIBLE);
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     @Override
     public void onBackPressed() {

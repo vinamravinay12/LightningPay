@@ -39,33 +39,12 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-<<<<<<< HEAD
+
         android:text="No Items Added to the cart!"
         android:layout_gravity="center"
         android:id="@+id/no_item_text"/>
-=======
-        android:text="Hello World!" />
 
-    <Button
-        android:id="@+id/button_scan"
-        android:text="@string/scan"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_margin="5dp"
-        />
 
-    <EditText
-        android:id="@+id/result"
-        android:editable="false"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-
-        android:layout_marginTop="15dp"
-        android:visibility="gone"
-        />
->>>>>>> 669bdd31ecf586e5c14ced37dba3c9e15f4c7e7e
 
 
 </RelativeLayout>

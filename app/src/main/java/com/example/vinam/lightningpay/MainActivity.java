@@ -1,14 +1,14 @@
 package com.example.vinam.lightningpay;
 
-<<<<<<< HEAD
+
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.content.Context;
 import android.location.Location;
-=======
+
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
->>>>>>> 669bdd31ecf586e5c14ced37dba3c9e15f4c7e7e
+
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -26,7 +26,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-<<<<<<< HEAD
+
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,10 +40,9 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
-=======
 import android.widget.Button;
 import android.widget.EditText;
->>>>>>> 669bdd31ecf586e5c14ced37dba3c9e15f4c7e7e
+
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, LocationListener,
@@ -71,7 +70,7 @@ public class MainActivity extends AppCompatActivity
 
 
         //"Scan" button
-        final Button button = (Button) findViewById(R.id.button_scan);
+        /*final Button button = (Button) findViewById(R.id.button_scan);
         //Set action to button
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,24 +87,32 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-
+*/
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-<<<<<<< HEAD
+
         reminderFragmentLayout = (LinearLayout)findViewById(R.id.fragment_container);
         itemFragmentLayout = (LinearLayout)findViewById(R.id.item_container);
         no_item_text = (TextView)findViewById(R.id.no_item_text);
        // loc_text = (TextView)findViewById(R.id.loc_text);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-=======
 
-       FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
->>>>>>> 669bdd31ecf586e5c14ced37dba3c9e15f4c7e7e
+
+       //FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+               /* Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();*/
+                Intent qrDroid = new Intent( Services.SCAN ); //Set action "la.droid.qr.scan"
+
+                //Send intent and wait result
+                try {
+                    startActivityForResult(qrDroid, ACTIVITY_RESULT_QR_DRDROID);
+                } catch (ActivityNotFoundException activity) {
+                    //	Services.qrDroidRequired(Scan.this);
+                }
             }
         });
 
@@ -117,7 +124,7 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-<<<<<<< HEAD
+
         if(checkGooglePlayServices(this)){
             buildGoogleApiClient(this);
             createLocationRequest(this);
@@ -149,10 +156,6 @@ public class MainActivity extends AppCompatActivity
         }
 
         fragmentTransaction.commit();
-=======
-
-
->>>>>>> 669bdd31ecf586e5c14ced37dba3c9e15f4c7e7e
 
     }
 
@@ -168,9 +171,9 @@ public class MainActivity extends AppCompatActivity
             //Read result from QR Droid (it's stored in la.droid.qr.result)
             String result = data.getExtras().getString(Services.RESULT);
             //Just set result to EditText to be able to view it
-            EditText resultTxt = (EditText) findViewById(R.id.result);
-            resultTxt.setText( result );
-            resultTxt.setVisibility(View.VISIBLE);
+            //EditText resultTxt = (EditText) findViewById(R.id.result);
+            //resultTxt.setText( result );
+            //resultTxt.setVisibility(View.VISIBLE);
         }
     }
 
